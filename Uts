@@ -1,0 +1,99 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package uts;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import static java.lang.System.err;
+import java.net.Socket;
+import java.util.Arrays;
+import java.util.Scanner;
+
+/**
+ *
+ * @author sai
+ */
+public class Uts {
+
+    /**
+     * @param args the command line arguments
+     * @throws java.io.IOException
+     */
+    public static void main(String[] args) throws IOException {
+        // TODO code application logic here
+        try{
+            Socket soket = new Socket ("10.151.43.147",6666);
+            
+            PrintWriter out = new PrintWriter(soket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(soket.getInputStream()));
+            BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
+            
+            String str, first,t;
+            String user = null;
+                    System.out.println(in.readLine());
+            String use = null;
+                    System.out.println(in.readLine());
+            int i=0;
+            String userInput = null;
+            str = "Username:"+stdIn.readLine();
+            
+            out.println(str);
+            out.flush();
+            System.out.println(in.readLine());
+            
+            while (true) {
+            //    out.println(userInput);
+                str = in.readLine();
+                  System.out.println(str);
+                //str = in.readLine();
+                //first = String.valueOf(str.charAt(0));
+                //t = String.valueOf(str.charAt(5));
+                
+                
+                    
+                      String[] split = str.split(" ");
+                      //System.out.println(Arrays.toString(split));
+                      if(split[1].equals("+")){
+                          i = Integer.parseInt(split[0]) + Integer.parseInt(split[2]);
+                          System.out.println("Result:"+i+"\r");
+                      }
+                      else if(split[1].equals("-")){
+                          i = Integer.parseInt(split[0]) - Integer.parseInt(split[2]);
+                          System.out.println("Result:"+i+"\r");
+                      }
+                      else if(split[1].equals("x")){
+                          i = Integer.parseInt(split[0]) * Integer.parseInt(split[2]);
+                          System.out.println("Result:"+i+"\r");
+                      }
+                      else if(split[1].equals("mod")){
+                          i = Integer.parseInt(split[0]) % Integer.parseInt(split[2]);
+                          System.out.println("Result:"+i+"\r");
+                      }
+                      out.println("Result:"+String.valueOf(i));
+                      String test2=in.readLine();
+                      System.out.println(test2);
+                      if(test2.equalsIgnoreCase("Hash:")){
+                          break;
+                      }
+                  }
+                String test=in.readLine();
+                System.out.println(test);
+                test=in.readLine();
+                System.out.println(test);
+                out.println("HASH:" + test);
+                System.out.println(in.readLine());            
+        }
+        
+        catch(IOException ex)
+        {
+            err.println(ex);
+        }   
+    }   
+}
